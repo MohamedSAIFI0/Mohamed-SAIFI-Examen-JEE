@@ -230,4 +230,25 @@ public class AssuranceServiceImpl implements IAssuranceService {
                 .map(mapper::toPaiementDTO)
                 .collect(Collectors.toList());
     }
+    @Override
+    public List<ContratAutoDTO> getAllContratsAuto() {
+        return contratAutoRepository.findAll().stream()
+                .map(mapper::toContratAutoDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ContratHabitationDTO> getAllContratsHabitation() {
+        return contratHabitationRepository.findAll().stream()
+                .map(mapper::toContratHabitationDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ContratSanteDTO> getAllContratsSante() {
+        return contratSanteRepository.findAll().stream()
+                .map(mapper::toContratSanteDTO)
+                .collect(Collectors.toList());
+    }
+
 }

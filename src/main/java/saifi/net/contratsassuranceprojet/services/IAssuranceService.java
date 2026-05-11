@@ -38,4 +38,14 @@ public interface IAssuranceService {
     List<PaiementDTO> getPaiementsContrat(Long contratId);
     void deletePaiement(Long id);
     List<PaiementDTO> getAllPaiements();
+
+
+    List<ContratAutoDTO> getAllContratsAuto();
+
+
+    List<ContratHabitationDTO> getAllContratsHabitation();
+
+    List<ContratSanteDTO> getAllContratsSante();
+
+
 }
