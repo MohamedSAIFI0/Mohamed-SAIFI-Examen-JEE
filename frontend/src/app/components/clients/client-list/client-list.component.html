@@ -1,0 +1,147 @@
+<div class="container-fluid py-4 px-4">
+
+  <!-- HEADER -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+      <h3 class="fw-bold mb-0">
+        <i class="bi bi-people me-2 text-primary"></i>
+        Clients
+      </h3>
+      <small class="text-muted">
+        {{ clients.length }} client(s) au total
+      </small>
+    </div>
+
+    <a routerLink="/clients/new" class="btn btn-primary rounded-3">
+      <i class="bi bi-person-plus me-2"></i>Nouveau client
+    </a>
+
+  </div>
+
+  <!-- SEARCH -->
+  <div class="bg-white rounded-4 shadow-sm p-3 mb-3">
+
+    <div class="input-group">
+
+      <span class="input-group-text bg-transparent border-0">
+        <i class="bi bi-search text-muted"></i>
+      </span>
+
+      <input type="text"
+             class="form-control border-0 ps-0"
+             placeholder="Rechercher..."
+             [(ngModel)]="searchTerm"
+             (input)="onSearch()">
+
+      <button class="btn btn-sm btn-outline-secondary"
+              *ngIf="searchTerm"
+              (click)="clearSearch()">
+        <i class="bi bi-x"></i>
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- ALERT -->
+  <div *ngIf="message"
+       class="alert rounded-3"
+       [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+
+    {{ message }}
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary"></div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="bg-white rounded-4 shadow-sm overflow-hidden" *ngIf="!loading">
+
+    <!-- EMPTY -->
+    <div *ngIf="filteredClients.length === 0"
+         class="text-center py-5 text-muted">
+
+      <i class="bi bi-person-x fs-1 d-block mb-2 opacity-25"></i>
+      Aucun client trouvé
+    </div>
+
+    <!-- TABLE -->
+    <table class="table table-hover align-middle mb-0"
+           *ngIf="filteredClients.length > 0">
+
+      <thead class="table-light">
+      <tr>
+        <th class="ps-4">Client</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Adresse</th>
+        <th class="text-end pe-4">Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let client of filteredClients">
+
+        <td class="ps-4">
+          <div class="d-flex align-items-center gap-3">
+
+            <div class="avatar-circle">
+              {{ client.nom[0] }}{{ client.prenom[0] }}
+            </div>
+
+            <div>
+              <div class="fw-semibold">
+                {{ client.nom }} {{ client.prenom }}
+              </div>
+              <small class="text-muted">
+                ID: {{ client.id }}
+              </small>
+            </div>
+
+          </div>
+        </td>
+
+        <td>
+          <i class="bi bi-envelope me-1 text-muted"></i>
+          {{ client.email }}
+        </td>
+
+        <td>
+          <i class="bi bi-telephone me-1 text-muted"></i>
+          {{ client.telephone }}
+        </td>
+
+        <td class="text-truncate" style="max-width:150px">
+          {{ client.adresse }}
+        </td>
+
+        <td class="text-end pe-4">
+
+          <a [routerLink]="['/contrats']"
+             [queryParams]="{ clientId: client.id }"
+             class="btn btn-sm btn-outline-info me-1">
+            <i class="bi bi-file-earmark-text"></i>
+          </a>
+
+          <a [routerLink]="['/clients/edit', client.id]"
+             class="btn btn-sm btn-outline-primary me-1">
+            <i class="bi bi-pencil"></i>
+          </a>
+
+          <button class="btn btn-sm btn-outline-danger"
+                  (click)="deleteClient(client)">
+            <i class="bi bi-trash"></i>
+          </button>
+
+        </td>
+
+      </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+</div>

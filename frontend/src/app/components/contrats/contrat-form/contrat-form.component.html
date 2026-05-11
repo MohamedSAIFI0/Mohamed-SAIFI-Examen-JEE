@@ -1,0 +1,167 @@
+<div class="container py-4 form-container">
+
+  <!-- BACK -->
+  <div class="mb-4">
+    <a routerLink="/contrats" class="btn btn-sm btn-outline-secondary rounded-3">
+      <i class="bi bi-arrow-left me-1"></i>Retour
+    </a>
+  </div>
+
+  <!-- CARD -->
+  <div class="bg-white rounded-4 shadow-sm overflow-hidden">
+
+    <!-- HEADER -->
+    <div class="form-header p-4 text-white">
+      <h4 class="fw-bold mb-0">
+        <i class="bi bi-file-earmark-{{ isEdit ? 'pen' : 'plus' }} me-2"></i>
+        {{ isEdit ? 'Modifier le contrat' : 'Nouveau contrat' }}
+      </h4>
+    </div>
+
+    <!-- BODY -->
+    <div class="p-4">
+
+      <!-- MESSAGE -->
+      <div *ngIf="message"
+           class="alert rounded-3"
+           [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+        {{ message }}
+      </div>
+
+      <!-- FORM -->
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="row g-3">
+
+          <!-- REF -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Référence *</label>
+            <input class="form-control rounded-3"
+                   formControlName="reference"
+                   [ngClass]="{'is-invalid': submitted && f['reference'].errors}"
+                   placeholder="CONT-2024-001">
+            <div class="invalid-feedback">Référence requise</div>
+          </div>
+
+          <!-- TYPE -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Type *</label>
+            <select class="form-select rounded-3"
+                    formControlName="typeAssurance"
+                    [ngClass]="{'is-invalid': submitted && f['typeAssurance'].errors}">
+              <option value="">Sélectionner...</option>
+              <option value="AUTO">Auto</option>
+              <option value="HABITATION">Habitation</option>
+              <option value="VIE">Vie</option>
+              <option value="SANTE">Santé</option>
+              <option value="VOYAGE">Voyage</option>
+            </select>
+            <div class="invalid-feedback">Type requis</div>
+          </div>
+
+          <!-- DATE DEBUT -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Date début *</label>
+            <input type="date"
+                   class="form-control rounded-3"
+                   formControlName="dateDebut"
+                   [ngClass]="{'is-invalid': submitted && f['dateDebut'].errors}">
+            <div class="invalid-feedback">Date requise</div>
+          </div>
+
+          <!-- DATE FIN -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Date fin *</label>
+            <input type="date"
+                   class="form-control rounded-3"
+                   formControlName="dateFin"
+                   [ngClass]="{'is-invalid': submitted && f['dateFin'].errors}">
+            <div class="invalid-feedback">Date requise</div>
+          </div>
+
+          <!-- PRIME -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Prime (DH) *</label>
+
+            <div class="input-group">
+              <input type="number"
+                     class="form-control"
+                     formControlName="montantPrime"
+                     [ngClass]="{'is-invalid': submitted && f['montantPrime'].errors}"
+                     placeholder="1500">
+
+              <span class="input-group-text">DH</span>
+
+              <div class="invalid-feedback">Montant requis</div>
+            </div>
+
+          </div>
+
+          <!-- STATUT -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Statut</label>
+            <select class="form-select rounded-3" formControlName="statut">
+              <option value="EN_ATTENTE">En attente</option>
+              <option value="ACTIF">Actif</option>
+              <option value="EXPIRE">Expiré</option>
+              <option value="RESILIE">Résilié</option>
+            </select>
+          </div>
+
+          <!-- CLIENT -->
+          <div class="col-12">
+            <label class="form-label fw-semibold">Client *</label>
+
+            <select class="form-select rounded-3"
+                    formControlName="clientId"
+                    [ngClass]="{'is-invalid': submitted && f['clientId'].errors}">
+
+              <option value="">Sélectionner un client...</option>
+
+              <option *ngFor="let c of clients" [value]="c.id">
+                {{ c.nom }} {{ c.prenom }} — {{ c.email }}
+              </option>
+
+            </select>
+
+            <div class="invalid-feedback">Client requis</div>
+          </div>
+
+          <!-- DESCRIPTION -->
+          <div class="col-12">
+            <label class="form-label fw-semibold">Description</label>
+            <textarea class="form-control rounded-3"
+                      rows="3"
+                      formControlName="description"
+                      placeholder="Détails du contrat..."></textarea>
+          </div>
+
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="d-flex gap-2 mt-4">
+
+          <button type="submit"
+                  class="btn btn-success rounded-3 px-4"
+                  [disabled]="saving">
+
+            <span *ngIf="saving" class="spinner-border spinner-border-sm me-2"></span>
+
+            <i *ngIf="!saving" class="bi bi-check-lg me-2"></i>
+
+            {{ isEdit ? 'Enregistrer' : 'Créer' }}
+          </button>
+
+          <a routerLink="/contrats"
+             class="btn btn-outline-secondary rounded-3 px-4">
+            Annuler
+          </a>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+</div>

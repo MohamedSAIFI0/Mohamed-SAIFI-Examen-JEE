@@ -84,13 +84,14 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": []
+            "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css", "node_modules/bootstrap-icons/font/bootstrap-icons.css", "src/styles.scss"],
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "a76f0ec2-6eca-4ff2-b7e0-8b786d111a46"
   }
 }
