@@ -8,10 +8,13 @@ import saifi.net.contratsassuranceprojet.enums.StatusContrat;
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "TYPE_CONTRAT")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Contrat {
+@AllArgsConstructor
+public abstract class Contrat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +26,8 @@ public class Contrat {
     private StatusContrat statut;
 
     private LocalDate dateValidation;
-
     private Double montantCotisation;
-
     private Integer dureeContrat;
-
     private Double tauxCouverture;
 
     @ManyToOne

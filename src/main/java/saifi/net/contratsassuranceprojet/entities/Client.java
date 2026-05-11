@@ -3,6 +3,11 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Client {
 
     @Id
@@ -17,4 +22,6 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Contrat> contrats;
+
+
 }

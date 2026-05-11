@@ -24,6 +24,5 @@ public class Paiement {
 
     @ManyToOne
     @JoinColumn(name = "contrat_id")
-    @SuppressWarnings("JpaAttributeTypeInspection")
     private Contrat contrat;
 }
