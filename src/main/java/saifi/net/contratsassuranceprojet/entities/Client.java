@@ -23,5 +23,4 @@ public class Client {
     @ToString.Exclude
     private List<Contrat> contrats;
 
-
 }
